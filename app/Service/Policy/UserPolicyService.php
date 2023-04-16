@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Policy;
 
 use App\Models\Chat;
 use App\Models\Post;

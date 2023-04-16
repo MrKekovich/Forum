@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Models\Post;
 
 use App\Http\Filters\PostFilter;
 use App\Http\Requests\Post\FilterRequest;
@@ -9,10 +9,19 @@ use App\Http\Requests\Post\UpdateRequest;
 use App\Models\Chat;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Service\BaseService;
+use App\Service\Models\EloquentRepository;
 use Illuminate\Support\Facades\DB;
 
-class PostService
+class PostService extends BaseService
 {
+    protected PostEloquentRepository $repository;
+
+    public function getEloquent(): EloquentRepository
+    {
+        return $this->repository;
+    }
+
     public static function index(FilterRequest $request): array|\LaravelIdea\Helper\App\Models\_IH_Post_C|\Illuminate\Pagination\LengthAwarePaginator
     {
         $data = $request->validated();
@@ -24,7 +33,7 @@ class PostService
         return Post::orderByDesc('id')->filter($filter)->paginate($perPage, ['*'], 'page', $page);
     }
 
-    public static function store(StoreRequest $request) : Post|string
+    public static function store(StoreRequest $request): Post|string
     {
         try {
             DB::beginTransaction();

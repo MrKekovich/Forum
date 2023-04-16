@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Filters\PostFilter;
 use App\Http\Requests\Post\FilterRequest;
 use App\Http\Requests\Post\StoreRequest;
 use App\Http\Requests\Post\UpdateRequest;
-use App\Http\Resources\Post\PostResource;
 use App\Models\Category;
-use App\Models\Chat;
 use App\Models\Post;
-use App\Service\PostService;
+use App\Service\Models\Post\PostService;
 
 class PostController extends Controller
 {

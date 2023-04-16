@@ -5,8 +5,7 @@ namespace App\Policies;
 use App\Models\Chat;
 use App\Models\Post;
 use App\Models\User;
-use App\Service\UserPolicyService;
-use Illuminate\Auth\Access\Response;
+use App\Service\Policy\UserPolicyService;
 
 class UserPolicy
 {

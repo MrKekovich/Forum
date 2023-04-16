@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Models\Chat;
 
 use App\Http\Filters\ChatFilter;
 use App\Models\Chat;
@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class ChatService
 {
-
     public static function index($chats, $data)
     {
         try {
