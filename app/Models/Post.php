@@ -44,4 +44,14 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function replies(): HasMany
+    {
+        return $this->hasMany(Post::class, 'parent_id', 'id');
+    }
+
+    public function parentPost(): BelongsTo
+    {
+        return $this->belongsTo(Post::class, 'parent_id', 'id');
+    }
 }

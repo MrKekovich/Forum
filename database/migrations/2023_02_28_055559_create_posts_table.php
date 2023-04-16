@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('reply_post_id')->nullable();
+            $table->unsignedBigInteger('parent_id')->nullable();
 
             $table->string('title');
             $table->text('content');
@@ -26,6 +26,19 @@ return new class extends Migration
 
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories')
+                ->onDelete('cascade');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+            $table->foreign('parent_id')
+                ->references('id')
+                ->on('posts')
+                ->onDelete('cascade');
         });
     }
 

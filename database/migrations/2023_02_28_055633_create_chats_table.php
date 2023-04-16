@@ -16,12 +16,25 @@ return new class extends Migration
 
             $table->unsignedBigInteger('post_id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('parent_id')->nullable();
 
             $table->text('message');
-            $table->unsignedBigInteger('reply_to')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('post_id')
+                ->references('id')
+                ->on('posts')
+                ->onDelete('cascade');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+            $table->foreign('parent_id')
+                ->references('id')
+                ->on('chats')
+                ->onDelete('cascade');
         });
     }
 

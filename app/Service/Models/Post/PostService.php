@@ -11,7 +11,9 @@ use App\Models\Post;
 use App\Models\Tag;
 use App\Service\BaseService;
 use App\Service\Models\EloquentRepository;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
+use LaravelIdea\Helper\App\Models\_IH_Post_C;
 
 class PostService extends BaseService
 {
@@ -22,7 +24,7 @@ class PostService extends BaseService
         return $this->repository;
     }
 
-    public static function index(FilterRequest $request): array|\LaravelIdea\Helper\App\Models\_IH_Post_C|\Illuminate\Pagination\LengthAwarePaginator
+    public static function index(FilterRequest $request): array|_IH_Post_C|LengthAwarePaginator
     {
         $data = $request->validated();
 
@@ -30,7 +32,9 @@ class PostService extends BaseService
         $perPage = $data['per_page'] ?? 5;
 
         $filter = app()->make(PostFilter::class, ['queryParams' => array_filter($data)]);
-        return Post::orderByDesc('id')->filter($filter)->paginate($perPage, ['*'], 'page', $page);
+        return Post::orderByDesc('id')
+            ->filter($filter)
+            ->paginate($perPage, ['*'], 'page', $page);
     }
 
     public static function store(StoreRequest $request): Post|string
@@ -54,31 +58,33 @@ class PostService extends BaseService
         return $post;
     }
 
-    public static function update(UpdateRequest $request, Post $post): string|Post|null
+    public static function update(Post $model, UpdateRequest $request): string|Post|null
     {
         try {
             DB::beginTransaction();
 
             $data = self::dataTags($request)['data'];
             $tags = self::dataTags($request)['tags'];
-            $post->update($data);
-            self::addTags($tags, $post);
+
+            $model->update($data);
+
+            self::addTags($tags, $model);
 
             DB::commit();
         } catch (\Exception $exception) {
             DB::rollBack();
             return $exception->getMessage();
         }
-        return $post->fresh();
+        return $model->fresh();
     }
 
-    public static function destroy(Post $post): string|\Illuminate\Http\RedirectResponse
+    public static function destroy(Post $model): string|\Illuminate\Http\RedirectResponse
     {
         try {
             DB::beginTransaction();
 
-            Chat::destroy($post->chats);
-            $post->delete();
+            Chat::destroy($model->chats);
+            $model->delete();
 
             DB::commit();
         } catch (\Exception $exception) {

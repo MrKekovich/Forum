@@ -4,6 +4,7 @@ namespace App\Service\Models;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Http\FormRequest;
 
 trait HasCRUD
 {
@@ -22,14 +23,14 @@ trait HasCRUD
         return $this->getEloquent()->getById($id);
     }
 
-    public function store(array $data): Model|null
+    public function store(FormRequest $request): Model|null
     {
-        return $this->getEloquent()->store($data);
+        return $this->getEloquent()->store($request->validated());
     }
 
-    public function update(Model $model, array $data): Model|null
+    public function update(Model $model, FormRequest $request): Model|null
     {
-        return $this->getEloquent()->update($model, $data);
+        return $this->getEloquent()->update($model, $request->validated());
     }
 
     public function destroy(Model $model): bool
