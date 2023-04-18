@@ -8,9 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class PostEloquentRepository extends EloquentRepository
 {
-    protected Post $model;
     public function getModel(): Model
     {
-        return $this->model;
+        return new Post;
     }
 }

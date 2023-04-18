@@ -18,4 +18,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+Route::resource('posts', 'App\Http\Controllers\PostController');
+Route::resource('chats', 'App\Http\Controllers\ChatController');

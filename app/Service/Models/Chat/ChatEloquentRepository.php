@@ -8,10 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ChatEloquentRepository extends EloquentRepository
 {
-    protected Chat $model;
 
     public function getModel(): Model
     {
-        return $this->model;
+        return new Chat;
     }
 }
