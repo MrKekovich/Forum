@@ -17,7 +17,6 @@ use LaravelIdea\Helper\App\Models\_IH_Post_C;
 
 class PostService extends BaseService
 {
-
     public function getEloquent(): EloquentRepository
     {
         return new PostEloquentRepository;
