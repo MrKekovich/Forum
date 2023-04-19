@@ -5,8 +5,8 @@ import router from "./router";
 
 const app = createApp({});
 
-import Index from './components/Index.vue';
-app.component('index-component', Index);
+import LteAdmin from './components/Layouts/LteAdmin.vue';
+app.component('admin-component', LteAdmin);
 
 app.use(router);
 
