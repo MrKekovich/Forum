@@ -17,3 +17,5 @@ Route::get('/{page}', function () {
     return view('home');
 })->where('page', '.*');
 
+Auth::routes();
+
