@@ -9,7 +9,7 @@ interface RepositoryInterface
 {
     public function getAll(): Collection;
 
-    public function getById(int $id): Model|null;
+    public function getById(int $id): Model|Collection|null;
 
     public function store(array $data): Model|null;
 
