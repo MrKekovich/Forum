@@ -20,3 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::resource('posts', 'App\Http\Controllers\PostController')->except('create', 'edit');
 Route::resource('chats', 'App\Http\Controllers\ChatController')->except('create', 'edit');
+Route::resource('users', 'App\Http\Controllers\UserController')->only('index', 'show');
+Route::resource('tags', 'App\Http\Controllers\TagController')->only('index', 'show');
