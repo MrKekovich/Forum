@@ -20,11 +20,11 @@ trait HasCRUD
             ->toJson();
     }
 
-    public function getById(int $id): string
+    public function getById(int $id): string | null
     {
         return $this->getEloquent()
             ->getById($id)
-            ->toJson();
+            ?->toJson();
     }
 
     public function store(FormRequest $request): string

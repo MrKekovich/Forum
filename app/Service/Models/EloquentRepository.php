@@ -13,17 +13,17 @@ abstract class EloquentRepository implements RepositoryInterface
         return $this->getModel()->orderByDesc('id')->get();
     }
 
-    public function getById(int $id): Model|null
+    public function getById(int $id): Model|Collection|null
     {
         return $this->getModel()->find($id);
     }
 
-    public function store(array $data): Model|null
+    public function store(array $data): Model
     {
         return $this->getModel()->create($data);
     }
 
-    public function update(Model $model, array $data): Model|null
+    public function update(Model $model, array $data): Model
     {
         return tap($model)->update($data);
     }
