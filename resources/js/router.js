@@ -12,15 +12,11 @@ const router = createRouter({
             name: 'post.index',
             component: () => import('./components/Views/Pages/Post/PostList.vue')
         },
-        // make dummy routes for index
-        // calendar
-        // gallery
-        // mailbox
-        // contacts
-        // contact_us
-        // settings
-        // faq
-
+        {
+            path: '/:id',
+            name: 'post.show',
+            component: () => import('./components/Views/Pages/Post/PostShow.vue')
+        },
         {
             path: '/calendar',
             name: 'calendar',
