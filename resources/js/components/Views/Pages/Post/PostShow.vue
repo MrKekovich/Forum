@@ -14,7 +14,8 @@ export default {
 
     data() {
         return {
-            post: null
+            post: null,
+            chats: null,
         }
     },
 
@@ -27,11 +28,21 @@ export default {
                 .catch(error => {
                     console.log(error);
                 })
+        },
+        getChats() {
+            axios.get(`/api/chats/${this.id}`)
+                .then(response => {
+                    this.chats = response.data;
+                })
+                .catch(error => {
+                    console.log(error);
+                })
         }
     },
 
     mounted() {
         this.getPost();
+        this.getChats();
     },
 
     computed: {

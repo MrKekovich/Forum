@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\DB;
 
 class ChatService extends BaseService
 {
-
     public function getEloquent(): EloquentRepository
     {
         return new ChatEloquentRepository;

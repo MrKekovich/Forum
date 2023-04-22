@@ -25,9 +25,9 @@ class ChatController extends BaseController
         return $this->service->store($request);
     }
 
-    public function show(Chat $chat)
+    public function show(int $id)
     {
-        return $this->service->show($chat);
+        return $this->service->getById($id);
     }
 
     public function update(UpdateRequest $request, Chat $chat)

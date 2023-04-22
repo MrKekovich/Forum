@@ -9,11 +9,11 @@
             <figcaption class="figure-caption">
                 {{ post?.title }}
                 <p>{{ post?.content }}</p><br>
-                <template v-for="tag in getTags(post?.id)">
+                <template v-for="tag in tags">
                     #{{ tag.title }}
-                    <br>
-                    created by: {{ getUser(post?.id)?.name }}
                 </template>
+                <br>
+                created by: {{ user?.name }}
             </figcaption>
         </figure>
     </router-link>
@@ -35,33 +35,33 @@ export default {
     },
     data() {
         return {
-            user: null
+            user: null,
+            tags: null
         }
     },
     methods: {
         getUser(userId) {
             axios.get(`/api/users/${userId}`)
                 .then(response => {
-                    return response.data;
+                    this.user = response.data;
                 })
                 .catch(error => {
                     console.log(error);
                 })
-            return null
         },
         getTags(postId) {
             axios.get(`/api/tags/${postId}`)
                 .then(response => {
-                    return response.data;
+                    this.tags = response.data;
                 })
                 .catch(error => {
                     console.log(error);
                 })
-            return null
         }
     },
     mounted() {
-        console.log('PostItem mounted');
+        this.getUser(this.post.user_id);
+        this.getTags(this.post.id);
     }
 }
 </script>
