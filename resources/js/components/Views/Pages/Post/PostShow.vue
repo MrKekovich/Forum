@@ -4,6 +4,7 @@
             <post-item :post="post"></post-item>
         </div>
     </div>
+
 </template>
 
 <script>
